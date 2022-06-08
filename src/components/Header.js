@@ -3,14 +3,15 @@ import styled from "styled-components";
 
 export default function Header(){
     return(
-        <Section>Quanto Tempo Tenho</Section>
+        <Container>Quanto Tempo Tenho</Container>
     );
 }
 
-const Section = styled.section`
+const Container = styled.div`
     width: 100%;
     height: 55px;
     background-color: #5F5F5F;
+    border-radius: 5px;
 
     display: flex;
     justify-content: center;
