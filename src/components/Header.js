@@ -10,7 +10,7 @@ export default function Header(){
 const Container = styled.div`
     width: 100%;
     height: 55px;
-    background-color: #5F5F5F;
+    background-color: #010D00;
     border-radius: 5px;
 
     display: flex;

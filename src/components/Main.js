@@ -22,7 +22,7 @@ export default function Main(){
 
 const Container = styled.div`
     width: 100%;
-    height: 100vh;
-    background-color: #BFBFBF;
+    height: fit-content;
+    background-color: #64A467;
 `;
 
