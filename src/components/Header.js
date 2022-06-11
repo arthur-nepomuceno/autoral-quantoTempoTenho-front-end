@@ -1,9 +1,14 @@
 import React from "react";
 import styled from "styled-components";
+import dayjs from "dayjs";
+import "dayjs/locale/pt-br";
 
 export default function Header(){
+    dayjs.locale(`pt-br`);
+    const today = dayjs().format(`dddd, DD/MM/YYYY`);
+
     return(
-        <Container>Quanto Tempo Tenho</Container>
+        <Container>Quanto Tempo Tenho - {today}</Container>
     );
 }
 
