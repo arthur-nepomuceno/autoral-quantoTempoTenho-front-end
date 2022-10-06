@@ -1,8 +1,8 @@
 import React from "react";
 import "./styles/reset.css"
 import "./styles/styles.css";
-import Header from "./components/Header";
-import Main from "./components/Main";
+import Header from "./containers/Header";
+import Main from "./containers/Main";
 
 export default function App(){
     return(

@@ -1,18 +1,18 @@
 import React, { useState} from "react";
 import styled from "styled-components";
-import Input from "./Input";
-import TaskList from "./TaskList";
+import Input from "../components/Input";
+import TaskList from "../components/TaskList";
 import TaskContext from "../contexts/TaskContext";
 
 export default function Main(){
     const [task, setTask] = useState("");
     const [date, setDate] = useState("");
     const [taskList, setTaskList] = useState([]);
-    const contextValues = {task, setTask, date, setDate, taskList, setTaskList};
+    const context = {task, setTask, date, setDate, taskList, setTaskList};
 
     return (
         <Container>
-            <TaskContext.Provider value={contextValues}>
+            <TaskContext.Provider value={context}>
                 <Input/>
                 <TaskList/>
             </TaskContext.Provider>

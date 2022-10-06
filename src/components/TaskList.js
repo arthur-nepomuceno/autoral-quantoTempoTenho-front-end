@@ -1,18 +1,18 @@
-import React, {useState, useContext} from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import TaskContext from "../contexts/TaskContext";
 
-export default function TaskList(){
-    const {taskList, setTaskList} = useContext(TaskContext);
+export default function TaskList() {
+    const { taskList, setTaskList } = useContext(TaskContext);
 
-    function deleteTask(task, number){
-        if(window.confirm(`Quer mesmo excluir o item "${task}" da sua lista?`)){
+    function deleteTask(task, number) {
+        if (window.confirm(`Quer mesmo excluir o item "${task}" da sua lista?`)) {
             const list = taskList.filter((element, index) => index !== number);
             setTaskList(list);
-        } 
+        }
     }
 
-    function renderTask(element, index){
+    function renderTask(element, index) {
         return (
             <Container key={index}>
                 <p id="task">
@@ -25,7 +25,7 @@ export default function TaskList(){
                     <ion-icon name="close-circle" onClick={() => deleteTask(element.task, index)}></ion-icon>
                 </div>
             </Container>
-            
+
         );
     }
 
