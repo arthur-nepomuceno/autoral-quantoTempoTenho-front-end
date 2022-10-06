@@ -6,9 +6,9 @@ import TaskContext from "../contexts/TaskContext";
 
 export default function Main(){
     const [task, setTask] = useState("");
-    const [date, setDate] = useState("");
+    const [deadline, setDeadline] = useState("");
     const [taskList, setTaskList] = useState([]);
-    const context = {task, setTask, date, setDate, taskList, setTaskList};
+    const context = {task, setTask, deadline, setDeadline, taskList, setTaskList};
 
     return (
         <Container>

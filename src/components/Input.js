@@ -3,22 +3,31 @@ import styled from "styled-components";
 import TaskContext from "../contexts/TaskContext";
 
 export default function Input(){
-    const { task, setTask, date, setDate, taskList, setTaskList } = useContext(TaskContext);
+    const { task, setTask, deadline, setDeadline, taskList, setTaskList } = useContext(TaskContext);
 
     function saveTask(){
-        const altDate = date.split("-");
-        const year = altDate[0];
-        const month = altDate[1];
-        const day = altDate[2];
-        const Date = `${day}/${month}/${year}`;
-        console.log(Date);
-        setTaskList([...taskList, {task, date: Date}]);
+        if(!deadline || !task){
+            alert('Por favor preencha os campos corretamente.');
+            return;
+        }
+
+        // const aux = deadline.split("-");
+        // const year = aux[0];
+        // const month = aux[1];
+        // const day = aux[2];
+        // const limit = `${day}/${month}/${year}`;
+
+        console.log(+new Date(deadline));
+        console.log(+new Date());
+        console.log(+new Date() < +new Date(deadline));
+        
+        setTaskList([...taskList, {task, date: deadline}]);
     }
 
     return(
         <Container>
             <input type="text" id="task" value={task} onChange={(e) => {setTask(e.target.value)}} placeholder="nova tarefa" autoFocus/>
-            <input type="date" id="date" value={date} onChange={(e) => {setDate(e.target.value)}}/>
+            <input type="datetime-local" id="date" value={deadline} onChange={(e) => {setDeadline(e.target.value)}}/>
             <div>
                 <ion-icon name="add-circle" onClick={saveTask}></ion-icon>
             </div>

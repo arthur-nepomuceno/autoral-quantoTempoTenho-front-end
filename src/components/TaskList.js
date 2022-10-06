@@ -25,7 +25,6 @@ export default function TaskList() {
                     <ion-icon name="close-circle" onClick={() => deleteTask(element.task, index)}></ion-icon>
                 </div>
             </Container>
-
         );
     }
 
