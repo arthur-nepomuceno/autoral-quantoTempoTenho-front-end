@@ -1,22 +1,33 @@
-import React, { useState} from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import React, { useState } from "react";
 import styled from "styled-components";
-import Input from "../components/Input";
+import MainButton from "../components/MainButton";
 import TaskList from "../components/TaskList";
 import TaskContext from "../contexts/TaskContext";
+import NewTask from "../components/NewTask";
 
-export default function Main(){
+export default function Main() {
     const [task, setTask] = useState("");
     const [deadline, setDeadline] = useState("");
     const [taskList, setTaskList] = useState([]);
-    const context = {task, setTask, deadline, setDeadline, taskList, setTaskList};
+    const context = { task, setTask, deadline, setDeadline, taskList, setTaskList };
 
     return (
-        <Container>
-            <TaskContext.Provider value={context}>
-                <Input/>
-                <TaskList/>
-            </TaskContext.Provider>
-        </Container>
+        <BrowserRouter>
+            <Container>
+                <TaskContext.Provider value={context}>
+                    <Routes>
+                        <Route path="/" element={
+                            <>
+                                <MainButton/>
+                                <TaskList/>
+                            </>
+                        }/>
+                        <Route path="/new-task" element={<NewTask/>}/>
+                    </Routes>
+                </TaskContext.Provider>
+            </Container>
+        </BrowserRouter>
     );
 }
 

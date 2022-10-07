@@ -8,16 +8,16 @@ export default function Header(){
     const mm = (date.getMonth() + 1).toString().padStart(2, '0');
     const yyyy = date.getFullYear();
 
-    const today = `${dd}/${mm}/${yyyy}`
+    const today = `${dd}.${mm}.${yyyy}`
 
     return(
-        <Container>Quanto Tempo Tenho - {today}</Container>
+        <Container>Quanto Tempo Tenho. {today}</Container>
     );
 }
 
 const Container = styled.div`
     width: 100%;
-    height: 55px;
+    height: 34px;
     background-color: #010D00;
     border-radius: 5px;
 
@@ -25,7 +25,7 @@ const Container = styled.div`
     justify-content: center;
     align-items: center;
 
-    font-size: 21px;
+    font-size: 13px;
     font-weight: 700;
     color: #FFFFFF;
 `;
