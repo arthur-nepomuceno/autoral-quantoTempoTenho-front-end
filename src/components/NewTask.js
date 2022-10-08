@@ -1,19 +1,65 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export default function NewTask(){
 
+    const navigate = useNavigate();
+    const [title, setTitle] = useState('asasd');
+    const [days, setDays] = useState(0);
+    const [hours, setHours] = useState(1);
+    const [deadline, setDeadline] = useState(null);
+    const API = 'http://localhost:5000/task';
+
+    function millisecs(days, hours){
+        return hours * 3600000 + days * 86400000 
+    }
+
+    const timeSpan = millisecs(days, hours)
+    const now = +new Date();
+    const limit = +new Date(deadline);
+
+    function Send(event){
+        event.preventDefault();
+        
+        if(limit < now){
+            alert('Você não pode escolher um momento anterior no tempo.');
+            return;
+        }
+        
+        if(limit - now < 3600000){
+            alert('O tempo mínimo permitido para a execução de uma tarefa é de 1 hora.');
+            return;
+        }
+        
+        //build request with axios
+        const body = {title, timeSpan, deadline: limit};
+        const promise = axios.post(API, body);
+        promise.then((response) => {
+            setTitle('');
+            setDays(0);
+            setHours(1);
+            setDeadline(null);
+            navigate('/')
+        }).catch((error) => {
+            console.log(error)
+        })
+
+    }
+    
+
     return (
         <Container>
-        <form>
+        <form onSubmit={Send}>
             <div id='title'>
                 <h3>Nova tarefa</h3>
             </div>
-            <input type='text' placeholder='Título' required/>
-            <input type='number' placeholder='dias' required/>
-            <input type='number' placeholder='horas' required/>
-            <input type='datetime-local'  placeholder='data limite' required/>
+            <input type='text' placeholder='Título' value={title} onChange={(e) => setTitle(e.target.value)} required/>
+            <input type='number' placeholder='dias' min={0} value={days} onChange={(e) => setDays(e.target.value)} required/>
+            <input type='number' placeholder='horas' min={1} value={hours} onChange={(e) => setHours(e.target.value)} required/>
+            <input type='datetime-local' placeholder='data limite' value={deadline} onChange={(e) => setDeadline(e.target.value)} required/>
             <button type='submit'>
                 <h3>Salvar tarefa</h3>
             </button>
