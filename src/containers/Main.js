@@ -5,6 +5,7 @@ import MainButton from "../components/MainButton";
 import TaskList from "../components/TaskList";
 import TaskContext from "../contexts/TaskContext";
 import NewTask from "../components/NewTask";
+import Columns from "../components/Columns";
 
 export default function Main() {
     const [task, setTask] = useState("");
@@ -20,6 +21,7 @@ export default function Main() {
                         <Route path="/" element={
                             <>
                                 <MainButton/>
+                                <Columns/>
                                 <TaskList/>
                             </>
                         }/>
