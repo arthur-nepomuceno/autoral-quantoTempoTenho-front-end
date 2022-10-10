@@ -1,28 +1,25 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import Input from "../components/Input";
+import Header from "./Header";
+import MainButton from "../components/MainButton";
 import TaskList from "../components/TaskList";
-import TaskContext from "../contexts/TaskContext";
+import Columns from "../components/Columns";
 
-export default function Main(){
-    const [task, setTask] = useState("");
-    const [date, setDate] = useState("");
-    const [taskList, setTaskList] = useState([]);
-    const context = {task, setTask, date, setDate, taskList, setTaskList};
+export default function Main() {
 
     return (
-        <Container>
-            <TaskContext.Provider value={context}>
-                <Input/>
+            <Container>
+                <Header/>                   
+                <MainButton/>
+                <Columns/>
                 <TaskList/>
-            </TaskContext.Provider>
-        </Container>
+            </Container>
     );
 }
 
 const Container = styled.div`
     width: 100%;
-    height: fit-content;
+    height: 100%;
     background-color: #64A467;
 `;
 
