@@ -1,41 +1,25 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 import React, { useState } from "react";
 import styled from "styled-components";
+import Header from "./Header";
 import MainButton from "../components/MainButton";
 import TaskList from "../components/TaskList";
-import TaskContext from "../contexts/TaskContext";
-import NewTask from "../components/NewTask";
 import Columns from "../components/Columns";
 
 export default function Main() {
-    const [task, setTask] = useState("");
-    const [deadline, setDeadline] = useState("");
-    const [taskList, setTaskList] = useState([]);
-    const context = { task, setTask, deadline, setDeadline, taskList, setTaskList };
 
     return (
-        <BrowserRouter>
             <Container>
-                <TaskContext.Provider value={context}>
-                    <Routes>
-                        <Route path="/" element={
-                            <>
-                                <MainButton/>
-                                <Columns/>
-                                <TaskList/>
-                            </>
-                        }/>
-                        <Route path="/new-task" element={<NewTask/>}/>
-                    </Routes>
-                </TaskContext.Provider>
+                <Header/>                   
+                <MainButton/>
+                <Columns/>
+                <TaskList/>
             </Container>
-        </BrowserRouter>
     );
 }
 
 const Container = styled.div`
     width: 100%;
-    height: fit-content;
+    height: 100%;
     background-color: #64A467;
 `;
 

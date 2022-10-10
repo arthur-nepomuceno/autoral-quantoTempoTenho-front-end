@@ -1,4 +1,5 @@
 import React from "react";
+import Header from "../containers/Header";
 import styled from "styled-components";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -29,7 +30,6 @@ export default function NewTask(){
             return;
         }
         
-        //build request with axios
         const body = {title, 
             days: Number(days), 
             hours: Number(hours), 
@@ -52,28 +52,35 @@ export default function NewTask(){
 
     return (
         <Container>
-        <form onSubmit={Send}>
-            <div id='title'>
-                <h3>Nova tarefa</h3>
-            </div>
-            <input type='text' placeholder='Título' value={title} onChange={(e) => setTitle(e.target.value)} required/>
-            <input type='number' placeholder='dias' min={0} value={days} onChange={(e) => setDays(e.target.value)} required/>
-            <input type='number' placeholder='horas' min={1} value={hours} onChange={(e) => setHours(e.target.value)} required/>
-            <input type='datetime-local' placeholder='data limite' value={limit} onChange={(e) => setLimit(e.target.value)} required/>
-            <button type='submit'>
-                <h3>Salvar tarefa</h3>
-            </button>
-        </form>
-        <Link to="/" style={{textDecoration: "none"}}>
-            <h4>Retornar</h4>
-        </Link>
-    </Container>
+            <Section>
+                <Header/>
+                <form onSubmit={Send}>
+                    <div id='title'>
+                        <h3>Nova tarefa</h3>
+                    </div>
+                    <input type='text' placeholder='Título' value={title} onChange={(e) => setTitle(e.target.value)} required/>
+                    <input type='number' placeholder='dias' min={0} value={days} onChange={(e) => setDays(e.target.value)} required/>
+                    <input type='number' placeholder='horas' min={1} value={hours} onChange={(e) => setHours(e.target.value)} required/>
+                    <input type='datetime-local' placeholder='data limite' value={limit} onChange={(e) => setLimit(e.target.value)} required/>
+                    <button type='submit'>
+                        <h3>Salvar tarefa</h3>
+                    </button>
+                </form>
+                <Link to="/" style={{textDecoration: "none"}}>
+                    <h4>Retornar</h4>
+                </Link>
+            </Section>
+        </Container>
     )
 }
 
 const Container = styled.div`
+    width: 100%;
+    height: 100%;
+    background-color: #64A467;
+`;
 
-    padding-top: 8px;
+const Section = styled.section`
 
     display: flex;
     flex-direction: column;
@@ -90,6 +97,7 @@ const Container = styled.div`
     div#title {
         display: flex;
         justify-content: space-between;
+        margin-top: 8px;
         margin-bottom: 5px;
     }
 

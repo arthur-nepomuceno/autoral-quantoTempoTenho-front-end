@@ -1,11 +1,11 @@
 import React, { useContext, useEffect } from "react";
 import styled from "styled-components";
-import TaskContext from "../contexts/TaskContext";
+import DataContext from "../contexts/DataContext";
 import Timer from "./Timer";
 import axios from "axios";
 
 export default function TaskList() {
-    const { taskList, setTaskList } = useContext(TaskContext);
+    const { taskList, setTaskList } = useContext(DataContext);
     const API = 'http://localhost:5000/tasks'
 
     function deleteTask(task, number) {
@@ -14,11 +14,6 @@ export default function TaskList() {
             setTaskList(list);
         }
     }
-
-    function millisecs(days, hours){
-        return hours * 3600000 + days * 86400000 
-    }
-
 
     //get tasklist from back-end
     useEffect(() => {
@@ -37,8 +32,8 @@ export default function TaskList() {
         const yyyy = aux[0];
         const mm = aux[1];
         const dd = aux[2].substr(0, 2);
-        const hh = aux[2].substr(3, );
-        
+        const hh = aux[2].substr(3,);
+
         return (
             <Container key={element.id}>
                 <p id="title">
@@ -49,13 +44,13 @@ export default function TaskList() {
                 </p>
                 <p id="days-hours">
                     {element.days === 0 ? `${element.hours}h`
-                                        :`${element.days}d e ${element.hours}h`}
+                        : `${element.days}d e ${element.hours}h`}
                 </p>
                 <p id="timer">
-                    <Timer timestampDeadline={timestampDeadline}/>
+                    <Timer timestampDeadline={timestampDeadline} />
                 </p>
-                <div>
-                    <ion-icon name="close-circle" ></ion-icon>
+                <div onClick={() => {deleteTask(element.title, index)}}>
+                    <ion-icon name="close-circle"></ion-icon>
                 </div>
             </Container>
         );
@@ -63,7 +58,9 @@ export default function TaskList() {
 
     return (
         <>
-            {taskList.map((element, index) => renderTask(element, index))}
+            {taskList.sort((element) => {
+                return element.limit
+            }).map((element, index) => renderTask(element, index))}
         </>
     );
 }

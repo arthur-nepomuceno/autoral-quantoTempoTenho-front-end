@@ -1,30 +1,8 @@
 import React, {useContext} from "react";
 import styled from "styled-components";
-import TaskContext from "../contexts/TaskContext";
 import { Link } from "react-router-dom";
 
-export default function Input(){
-    const { task, setTask, deadline, setDeadline, taskList, setTaskList } = useContext(TaskContext);
-
-    function saveTask(){
-        if(!deadline || !task){
-            alert('Por favor preencha os campos corretamente.');
-            return;
-        }
-
-        // const aux = deadline.split("-");
-        // const year = aux[0];
-        // const month = aux[1];
-        // const day = aux[2];
-        // const limit = `${day}/${month}/${year}`;
-
-        console.log(+new Date(deadline));
-        console.log(+new Date());
-        console.log(+new Date() < +new Date(deadline));
-        
-        setTaskList([...taskList, {task, date: deadline}]);
-    }
-
+export default function MainButton(){
     return(
         <Container>
             <Link to="/new-task" style={{textDecoration: "none"}}>
