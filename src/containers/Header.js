@@ -13,7 +13,7 @@ export default function Header(){
 
     return(
         <Container>
-            Quanto Tempo Tenho. {today}
+            Quanto Tempo Tenho - {today}
             <Link to={'/signin'} style={{textDecoration: "none"}}>
                 <p>
                     Sair

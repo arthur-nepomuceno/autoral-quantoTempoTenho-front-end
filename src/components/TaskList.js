@@ -3,53 +3,68 @@ import styled from "styled-components";
 import DataContext from "../contexts/DataContext";
 import Timer from "./Timer";
 import axios from "axios";
+import { calculateTimeDifference } from "./utils/TaskUtils";
 
 export default function TaskList() {
     const { taskList, setTaskList } = useContext(DataContext);
     const API = 'http://localhost:5000/tasks'
 
-    function deleteTask(task, number) {
-        if (window.confirm(`Quer mesmo excluir o item "${task}" da sua lista?`)) {
+    function getTasks(){
+        useEffect(() => {
+            const promise = axios.get(API);
+            promise.then((response) => {
+                setTaskList(response.data);
+            }).catch((error) => {
+                console.log(error);
+            })
+        }, [])
+    }
+    getTasks();
+
+    function deleteTask(title, id, number) {
+        if (window.confirm(`Quer mesmo excluir o item "${title}" da sua lista?`)) {
+
+            const promise = axios.delete(`http://localhost:5000/task/${id}`);
+            promise.then((response) => {
+                console.log(response);
+            }).catch((error) => {
+                console.log(error);
+            })
+
+
             const list = taskList.filter((element, index) => index !== number);
             setTaskList(list);
         }
     }
-
-    //get tasklist from back-end
-    useEffect(() => {
-        const promise = axios.get(API);
-        promise.then((response) => {
-            setTaskList(response.data);
-        }).catch((error) => {
-            console.log(error);
-        })
-    }, [])
-
+        
     function renderTask(element, index) {
+        const {id, title, days, hours, limit} = element;
 
-        const timestampDeadline = +new Date(element.limit)
-        const aux = element.limit.split('-');
+        const {bgColor, color} = calculateTimeDifference(days, hours, limit);
+
+        const timestampDeadline = +new Date(limit)
+        const aux = limit.split('-');
         const yyyy = aux[0];
         const mm = aux[1];
         const dd = aux[2].substr(0, 2);
         const hh = aux[2].substr(3,);
 
         return (
-            <Container key={element.id}>
+            <Container key={index} bgColor={bgColor} color={color}>
                 <p id="title">
-                    {element.title}
+                    {title}
                 </p>
                 <p id="limit">
-                    {`${dd}/${mm}/${yyyy} ${hh}`}
+                    {`${dd}.${mm}.${yyyy} - ${hh}`}
                 </p>
                 <p id="days-hours">
-                    {element.days === 0 ? `${element.hours}h`
-                        : `${element.days}d e ${element.hours}h`}
+                    {days === 0 ? `${hours}h`
+                        : `${days}d e ${hours}h`}
                 </p>
                 <p id="timer">
                     <Timer timestampDeadline={timestampDeadline} />
                 </p>
-                <div onClick={() => {deleteTask(element.title, index)}}>
+                <div onClick={() => {deleteTask(title, id, index)}}>
                     <ion-icon name="close-circle"></ion-icon>
                 </div>
             </Container>
@@ -58,9 +73,7 @@ export default function TaskList() {
 
     return (
         <>
-            {taskList.sort((element) => {
-                return element.limit
-            }).map((element, index) => renderTask(element, index))}
+            {taskList.map((element, index) => renderTask(element, index))}
         </>
     );
 }
@@ -76,7 +89,7 @@ const Container = styled.div`
         color: #010D00;
         margin-right: 8px;
         font-size: 13px;
-        font-weight: 300;
+        font-weight: 500;
         padding-left: 8px;
         display: flex;
         align-items: center;
@@ -96,6 +109,8 @@ const Container = styled.div`
 
     p#timer {
         width: 377px;
+        color: ${props => props.color};
+        background-color: ${props => props.bgColor};
     }
 
     div {

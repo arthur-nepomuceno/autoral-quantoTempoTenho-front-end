@@ -4,12 +4,17 @@ export function getRemainingTime(timestamp) {
     const timestampDayjs = dayjs(timestamp);
     const nowDayjs = dayjs();
 
-    return {
-        seconds: getRemainingSeconds(nowDayjs, timestampDayjs),
-        minutes: getRemainingMinutes(nowDayjs, timestampDayjs),
-        hours: getRemainingHours(nowDayjs, timestampDayjs),
-        days: getRemainingDays(nowDayjs, timestampDayjs)
+    const seconds = getRemainingSeconds(nowDayjs, timestampDayjs);
+    const minutes = getRemainingMinutes(nowDayjs, timestampDayjs);
+    const hours = getRemainingHours(nowDayjs, timestampDayjs);
+    const days = getRemainingDays(nowDayjs, timestampDayjs);
+
+    if(days <= 0 && hours <= 0 && minutes <= 0 && seconds <= 0){
+        return {days: '00', hours: '00', minutes: '00', seconds: '00'};
     }
+
+    return {days, hours, minutes, seconds};
+    
 }
 
 function getRemainingSeconds(nowDayjs, timestampDayjs) {

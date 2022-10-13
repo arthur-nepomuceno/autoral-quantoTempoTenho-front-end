@@ -4,10 +4,10 @@ import styled from "styled-components"
 export default function Columns(){
     return (
         <Container>
-            <p id="title">título</p>
-            <p id="limit">entregar até</p>
-            <p id="days-hours">estimativa</p>
-            <p id="timer">quanto tempo tenho</p>
+            <p id="title">Título</p>
+            <p id="limit">Entregar até</p>
+            <p id="days-hours">Estimativa</p>
+            <p id="timer">Quanto tempo tenho</p>
             <div></div>
         </Container>
     )
@@ -20,7 +20,7 @@ const Container = styled.div`
     p {
         height: 21px;
         border-radius: 5px;
-        color: #010D00;
+        color: #FFFFFF;
         margin-right: 8px;
         font-size: 13px;
         font-weight: 500;
